@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💍 Shaadi Video Gallery</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(180deg, #7f1d1d, #facc15);
+      color: #fff;
+      text-align: center;
+    }
+    header {
+      padding: 20px;
+      background: #b91c1c;
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
+      border-bottom: 4px solid gold;
+    }
+    .upload-box {
+      margin: 20px;
+      padding: 20px;
+      border: 2px dashed gold;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.1);
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+      gap: 16px;
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      color: #000;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .card video {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .card h3 {
+      margin: 10px 0 0;
+      font-size: 18px;
+      color: #b91c1c;
+    }
+    input[type="file"] {
+      padding: 10px;
+      background: gold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>💍 हमारी शादी की यादें</header>
+
+  <div class="upload-box">
+    <p>अपना शादी का वीडियो यहाँ चुनें और तुरंत गैलरी में देखो:</p>
+    <input type="file" id="videoUpload" accept="video/mp4,video/webm" multiple>
+  </div>
+
+  <div class="gallery" id="gallery"></div>
+
+  <script>
+    const uploadInput = document.getElementById('videoUpload');
+    const gallery = document.getElementById('gallery');
+
+    uploadInput.addEventListener('change', function() {
+      const files = Array.from(this.files);
+
+      files.forEach((file, index) => {
+        const url = URL.createObjectURL(file);
+
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        const video = document.createElement('video');
+        video.src = url;
+        video.controls = true;
+
+        const title = document.createElement('h3');
+        title.textContent = "Video " + (gallery.children.length + 1);
+
+        card.appendChild(video);
+        card.appendChild(title);
+        gallery.appendChild(card);
+      });
+    });
+  </script>
+</body>
+</html>
